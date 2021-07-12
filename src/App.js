@@ -25,12 +25,18 @@ function App() {
     setEditing(true);
     setMusicInit({id:music.id, musicName: music.musicName, singer: music.singer, musician: music.musician});
     console.log(music);
-    <Link to={`/edit/${music.id}`}></Link>
+
   }
   const updateMusic = (id, newMusic)=>{
     setMusices(
       musices.map((music)=>(music.id === id ? newMusic:music))
     );
+  }
+
+  const deleteMusic = (id)=>{
+    console.log(id)
+    setEditing(false)
+    setMusices(musices.filter(music=> music.id !==id))
   }
   return (
     <Router>
@@ -43,12 +49,12 @@ function App() {
             <MusicTable 
             musices ={musices}
             editMusic ={editMusic}
+            deleteMusic={deleteMusic}
             />
           </Route>
           <Route path="/add">
             <AddMusic 
             addMusic={addMusic}
-
             /> 
             {/* <EditMusic/> */}
           </Route>
@@ -59,6 +65,7 @@ function App() {
               updateMusic = {updateMusic}
             />
           </Route>
+      
         </Switch>
       </div>
     </div>

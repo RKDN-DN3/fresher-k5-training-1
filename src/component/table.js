@@ -50,12 +50,12 @@ const MusicTable=(props)=>{
                         <td>{item.musicName}</td>
                         <td>{item.singer}</td>
                         <td>
-                          <Button onClick={() => {
-                            props.editMusic(item);
-
-                          }} 
+                          <Link to = {`/edit/${item.id}`}>
+                          <Button onClick={() => {props.editMusic(item)}} 
                           variant="warning"className="margin_item">Edit</Button>
-                          <Button variant="danger">delete</Button>
+                          </Link>
+                          <Button onClick={()=>{props.deleteMusic(item.id)}} 
+                          variant="danger">Delete</Button>
                           </td>
                         </tr>
                         )
