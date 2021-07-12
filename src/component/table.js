@@ -1,14 +1,27 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Form,Col,Row,Card, Table,InputGroup,Button} from 'react-bootstrap';
  
 function MusicTable(props){
+  const [searchText, setSearchText] = useState("");
+
+  const handleChange =(e)=>{
+    const {name, value} = e.target
+    setSearchText({name: value})
+    props.filterData({name: value})
+  }
      return(
       <Form>
         <Row  className="show-grid">
         <Col md={4}>
           <Form.Group>
             <InputGroup className="mb-3">
-              <Form.Control placeholder="Search item name" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+              <Form.Control placeholder="Search item name"  
+              aria-describedby="basic-addon2"
+              name ="search"
+              type="text"
+              value={searchText}
+              onChange={this.handleChange}
+              />
               <Button variant="info" id="button-addon2">Clean</Button>
           </InputGroup>
           </Form.Group>
@@ -40,9 +53,9 @@ function MusicTable(props){
               </thead>
               <tbody>
                   {props.musices.length >0 ?(
-                    props.musices.map(item=>{
+                    props.musices.map((item,i)=>{
                         return(
-                        <tr>
+                        <tr key={i}>
                         <td>{item.id}</td>
                         <td>{item.musicName}</td>
                         <td>{item.singer}</td>

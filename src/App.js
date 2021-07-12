@@ -8,7 +8,21 @@ import AddMusic from './component/Add-music';
 
 function App() {
  
+  const [searchText, setSearchText] = useState("");
   const [musices, setMusices] = useState(musicData);
+  
+  const filterData =(value)=>{
+    const lowercasedValue  = value.toLowerCase().trim();
+    if(lowercasedValue === "") setMusices(musicData);
+    else{
+      const filteredData = musicData.filter(musicItem =>{
+        return Object.keys(musicItem).some(key =>
+          musicItem[key].toString().toLowerCase().includes(lowercasedValue)
+          );
+      });
+      setMusices(filteredData)
+    }
+  }
   return (
     <Router>
     <div className="App"> 
