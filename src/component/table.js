@@ -1,7 +1,8 @@
 import React from 'react';
 import {Form,Col,Row,Card, Table,InputGroup,Button} from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
  
-function MusicTable(props){
+const MusicTable=(props)=>{
      return(
       <Form>
         <Row  className="show-grid">
@@ -19,7 +20,9 @@ function MusicTable(props){
         <Col md={5}>
         <Form.Group>
             <InputGroup className="mb-3">
+            <Link to={"/add"}>
             <Button variant="success" id="button-addon2" className="select_r">Add Item</Button>
+            </Link>
             </InputGroup>
           </Form.Group>
         </Col>
@@ -47,7 +50,11 @@ function MusicTable(props){
                         <td>{item.musicName}</td>
                         <td>{item.singer}</td>
                         <td>
-                          <Button variant="warning"className="margin_item">Edit</Button>
+                          <Button onClick={() => {
+                            props.editMusic(item);
+
+                          }} 
+                          variant="warning"className="margin_item">Edit</Button>
                           <Button variant="danger">delete</Button>
                           </td>
                         </tr>
