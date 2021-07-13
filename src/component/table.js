@@ -5,16 +5,24 @@ import { Link, useHistory } from 'react-router-dom';
 const MusicTable=(props)=>{
 
     const history = useHistory();
-    const clickRow = (e)=>{
-      history.push(`/detail/`)
+  
+    const onChangSearch =(e)=>{
+      const searchTitle = e.target.value
+      props.setSearchText(searchTitle)
+      console.log(props.searchText)
     }
+
      return(
       <Form>
         <Row  className="show-grid">
         <Col md={4}>
           <Form.Group>
             <InputGroup className="mb-3">
-              <Form.Control placeholder="Search item name" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+              <Form.Control placeholder="Search item name"  aria-describedby="basic-addon2"  
+               name ="searchText"
+               type="text"
+              value={props.searchText}
+              onChange={onChangSearch}/>
               <Button variant="info" id="button-addon2">Clean</Button>
           </InputGroup>
           </Form.Group>
