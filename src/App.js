@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import musicData from './data';
 import MusicTable from './component/table';
@@ -9,29 +9,28 @@ import AddMusic from './component/Add-music';
 function App() {
  
   const [searchText, setSearchText] = useState("");
-  const [musices, setMusices] = useState(musicData);
+  const [musices, setMusices] = useState([]);
   
-  const filterData =(value)=>{
-    const lowercasedValue  = value.toLowerCase().trim();
-    if(lowercasedValue === "") setMusices(musicData);
-    else{
-      const filteredData = musicData.filter(musicItem =>{
-        return Object.keys(musicItem).some(key =>
-          musicItem[key].toString().toLowerCase().includes(lowercasedValue)
-          );
-      });
-      setMusices(filteredData)
-    }
-  }
+  useEffect(()=>{
+    const result = musicData.filter(nameMusic => 
+        nameMusic.musicName.toLocaleLowerCase().includes(searchText)
+      );
+      setMusices(result)
+      console.log(result)
+  },[searchText])
+
   return (
     <Router>
     <div className="App"> 
       <div className="container"> 
         <h2>Project 01 - React CRUD</h2>
         <hr/>
+
         <Switch>
           <Route path="/" exact>
-            <MusicTable musices ={musices}/>
+            <MusicTable musices ={musices}
+              setSearchText={setSearchText}
+            />
           </Route>
           <Route path="/add">
             <AddMusic/>

@@ -2,14 +2,12 @@ import React,{useState} from 'react';
 import {Form,Col,Row,Card, Table,InputGroup,Button} from 'react-bootstrap';
  
 function MusicTable(props){
-  const [searchText, setSearchText] = useState("");
-
-
+  
 
   const onChangSearch =(e)=>{
     const searchTitle = e.target.value
-    setSearchText(searchTitle)
-    console.log(searchText)
+    props.setSearchText(searchTitle)
+    console.log(props.searchText)
   }
 
      return(
@@ -22,7 +20,7 @@ function MusicTable(props){
               aria-describedby="basic-addon2"
               name ="searchText"
               type="text"
-              value={searchText}
+              value={props.searchText}
               onChange={onChangSearch}
               />
               <Button variant="info" id="button-addon2">Clean</Button>
