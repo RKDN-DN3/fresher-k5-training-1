@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { BrowserRouter as Router, Link, Route, Switch, useHistory } from 'react-router-dom';
 import musicData from './data';
 import MusicTable from './component/table';
@@ -9,8 +9,8 @@ import EditMusic from './component/Edit-music';
 import DetailMusic from './component/Detail-music';
 
 function App() {
- 
-  const [musices, setMusices] = useState(musicData);
+  const [searchText, setSearchText] = useState("");
+  const [musices, setMusices] = useState([]);
   const history = useHistory();
   const addMusic = (music) =>{
     console.log(music.length);
@@ -41,6 +41,15 @@ function App() {
     setMusices(musices.filter(music=> music.id !==id))
     alert("Xóa thành công")
   }
+
+  useEffect(()=>{
+    const result = musicData.filter(nameMusic => 
+        nameMusic.musicName.toLocaleLowerCase().includes(searchText)
+      );
+      setMusices(result)
+      console.log(result)
+  },[searchText])
+
   return (
     <Router>
     <div className="App"> 
@@ -53,6 +62,7 @@ function App() {
             musices ={musices}
             editMusic ={editMusic}
             deleteMusic={deleteMusic}
+            setSearchText={setSearchText}
             />
           </Route>
           <Route path="/add">

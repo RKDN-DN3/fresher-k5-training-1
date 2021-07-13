@@ -32,7 +32,7 @@ import { useHistory } from 'react-router-dom';
             props.addMusic(music)
             setMusic(initialFormState)
             setSubmited(true)
-            if(submitted==true){
+            if(submitted == true){
                 alert("Thêm thanh công ")
             }
            
