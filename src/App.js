@@ -6,6 +6,7 @@ import musicData from './data';
 import MusicTable from './component/table';
 import AddMusic from './component/Add-music';
 import EditMusic from './component/Edit-music';
+import DetailMusic from './component/Detail-music';
 
 function App() {
  
@@ -31,12 +32,14 @@ function App() {
     setMusices(
       musices.map((music)=>(music.id === id ? newMusic:music))
     );
+    alert("Update thành công ")
   }
 
   const deleteMusic = (id)=>{
     console.log(id)
     setEditing(false)
     setMusices(musices.filter(music=> music.id !==id))
+    alert("Xóa thành công")
   }
   return (
     <Router>
@@ -65,7 +68,12 @@ function App() {
               updateMusic = {updateMusic}
             />
           </Route>
-      
+          <Route path = '/detail/:id'>
+            <DetailMusic
+              musicInit = {musicInit}
+             deleteMusic={deleteMusic}
+            />
+          </Route>
         </Switch>
       </div>
     </div>

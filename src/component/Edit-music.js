@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Row, Col,Form,Button, Card} from'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 function EditMusic(props){
 
@@ -18,6 +19,15 @@ function EditMusic(props){
         e.preventDefault();
          props.updateMusic(music.id, music)
          console.log(music)
+         history.push("/");
+    }
+    const history = useHistory()
+    
+    function onBackList() {
+        history.push("/");
+    }
+    const cleanClick=()=>{
+        setMusic(music.musicName ="", music.singer="", music.musician="")
     }
     return(
         <Row style ={{width:'70%', alignItems: 'center'}}>
@@ -44,14 +54,14 @@ function EditMusic(props){
                     </Row>
 
                     <div style={{marginBottom:'5px'}}>
-                        <Button variant="secondary" >
+                        <Button variant="secondary" onClick={onBackList}>
                             Back List
                         </Button>
                         <Button variant="success" type="submit" style={{marginLeft:'5px'}}>
                             Update Music
                         </Button>
-                        <Button variant="warning" type="submit" style={{marginLeft:'5px'}}>
-                            Cancel
+                        <Button variant="warning" type="submit" style={{marginLeft:'5px'}} onClick={cleanClick}>
+                            Clean
                         </Button>
                     </div>
                 </Form>

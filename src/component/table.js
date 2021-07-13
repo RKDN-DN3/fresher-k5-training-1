@@ -3,6 +3,11 @@ import {Form,Col,Row,Card, Table,InputGroup,Button} from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
  
 const MusicTable=(props)=>{
+
+    const history = useHistory();
+    const clickRow = (e)=>{
+      history.push(`/detail/`)
+    }
      return(
       <Form>
         <Row  className="show-grid">
@@ -34,7 +39,7 @@ const MusicTable=(props)=>{
           <Card.Body>
           <Table striped bordered hover>
               <thead>
-                <tr>
+                <tr onClick>
                   <th>#</th>
                   <th>Tên Bài Hát </th>
                   <th>Thể Hiện</th>
@@ -47,16 +52,21 @@ const MusicTable=(props)=>{
                         return(
                         <tr>
                         <td>{item.id}</td>
-                        <td>{item.musicName}</td>
+                        <td>{item.musicName} </td>
                         <td>{item.singer}</td>
                         <td>
                           <Link to = {`/edit/${item.id}`}>
                           <Button onClick={() => {props.editMusic(item)}} 
                           variant="warning"className="margin_item">Edit</Button>
                           </Link>
+                          <Link to = {`/detail/${item.id}`}>
+                          <Button onClick={() => {props.editMusic(item)}} 
+                          variant="info"className="margin_item">Detail</Button>
+                          </Link>
                           <Button onClick={()=>{props.deleteMusic(item.id)}} 
                           variant="danger">Delete</Button>
-                          </td>
+                        
+                         </td> 
                         </tr>
                         )
                       })
